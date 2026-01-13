@@ -80,32 +80,34 @@ const port = parseInt(process.env.PORT || "3000", 10);
 
 // Twilio Voice webhook (TEST)
 app.post("/voice", (req, res) => {
-  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
+  const twiml = `
+<?xml version="1.0" encoding="UTF-8"?>
 <Response>
+
+  <Pause length="1"/>
 
   <Say voice="Polly.Vicki" language="de-DE">
     Einen kleinen Moment bitte…
   </Say>
 
-  <Pause length="1"/>
+  <Pause length="2"/>
 
   <Say voice="Polly.Vicki" language="de-DE">
-    Danke fürs Warten.
+    Danke Ihnen.
   </Say>
 
   <Pause length="1"/>
 
   <Say voice="Polly.Vicki" language="de-DE">
-    Hallo, hier ist der Assistent von Parisi.
+    Hallo und herzlich willkommen bei Parisi.
   </Say>
 
   <Pause length="1"/>
 
   <Say voice="Polly.Vicki" language="de-DE">
-    Worum geht es genau?
-    Möchten Sie einen Termin vereinbaren
-    oder haben Sie kurz eine Frage?
+    Wie kann ich Ihnen heute weiterhelfen?
   </Say>
+
 </Response>`;
 
   res.type("text/xml");
