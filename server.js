@@ -79,27 +79,22 @@ app.post("/api/test-email", async (req, res) => {
 const port = parseInt(process.env.PORT || "3000", 10);
 // Twilio Voice webhook (TEST) – gibt garantiert Audio aus
 app.post("/voice", (req, res) => {
-  const twiml = `
-    <?xml version="1.0" encoding="UTF-8"?>
-    <Response>
-      <Say voice="Polly.Hans" language="de-DE">
-        Ähm… guten Tag, einen kleinen Moment bitte.
-      </Say>
+  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say voice="Polly.Hans" language="de-DE">
+    Ähm, guten Tag, einen kleinen Moment bitte.
+  </Say>
 
-      <Pause length="1"/>
+  <Pause length="1"/>
 
-      <Say voice="Polly.Hans" language="de-DE">
-        Ja hallo, hier ist der Assistent von Parisi.
-        Wie kann ich Ihnen helfen?
-      </Say>
-    </Response>
-  `;
+  <Say voice="Polly.Hans" language="de-DE">
+    Ja hallo, hier ist der Assistent von Parisi. Wie kann ich Ihnen helfen?
+  </Say>
+</Response>`;
 
   res.type("text/xml");
-  res.send(twiml);
+  res.status(200).send(twiml);
 });
-
-
   res.set("Content-Type", "text/xml");
   return res.status(200).send(twiml);
 });
