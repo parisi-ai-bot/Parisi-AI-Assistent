@@ -78,7 +78,7 @@ app.post("/api/test-email", async (req, res) => {
 
 const port = parseInt(process.env.PORT || "3000", 10);
 // Twilio Voice webhook (TEST) – gibt garantiert Audio aus
-app.post("/twilio/voice", (req, res) => {
+app.post("/voice", (req, res) => {
   const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
   <Say language="de-DE" voice="alice">
