@@ -27,6 +27,8 @@ app.get("/health", (_, res) => res.status(200).send("ok"));
 
 // parse json
 app.use(bodyParser.json({ limit: "2mb" }));
+// parse application/x-www-form-urlencoded (Twilio webhooks)
+app.use(bodyParser.urlencoded({ extended: false }));
 
 /**
  * POST /api/lead
@@ -75,4 +77,17 @@ app.post("/api/test-email", async (req, res) => {
 });
 
 const port = parseInt(process.env.PORT || "3000", 10);
+// Twilio Voice webhook (TEST) – gibt garantiert Audio aus
+app.post("/twilio/voice", (req, res) => {
+  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+  <Say language="de-DE" voice="alice">
+    Hallo! Hier ist der Parisi Test. Wenn du mich hörst, funktioniert Twilio Audio.
+  </Say>
+</Response>`;
+
+  res.set("Content-Type", "text/xml");
+  return res.status(200).send(twiml);
+});
+
 app.listen(port, () => console.log(`Server listening on ${port}`));
