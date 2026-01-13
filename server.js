@@ -80,23 +80,40 @@ const port = parseInt(process.env.PORT || "3000", 10);
 
 // Twilio Voice webhook (TEST)
 app.post("/voice", (req, res) => {
-  const twiml = `<?xml version="1.0" encoding="UTF-8"?>
+  const twiml = `
+<?xml version="1.0" encoding="UTF-8"?>
 <Response>
-  <Say voice="Polly.Hans" language="de-DE">
-    Ähm, guten Tag, einen kleinen Moment bitte.
+
+  <Say voice="Polly.Vicki" language="de-DE">
+    Einen kleinen Moment bitte…
   </Say>
 
   <Pause length="1"/>
 
-  <Say voice="Polly.Hans" language="de-DE">
-    Ja hallo, hier ist der Assistent von Parisi. Wie kann ich Ihnen helfen?
+  <Say voice="Polly.Vicki" language="de-DE">
+    Danke fürs Warten.
   </Say>
-</Response>`;
+
+  <Pause length="1"/>
+
+  <Say voice="Polly.Vicki" language="de-DE">
+    Hallo, hier ist der Assistent von Parisi.
+  </Say>
+
+  <Pause length="1"/>
+
+  <Say voice="Polly.Vicki" language="de-DE">
+    Worum geht es genau?
+    Möchten Sie einen Termin vereinbaren
+    oder haben Sie kurz eine Frage?
+  </Say>
+
+</Response>
+`;
 
   res.type("text/xml");
-  return res.status(200).send(twiml);
+  res.status(200).send(twiml);
 });
-
 // health (Railway check)
 app.get("/health", (req, res) => res.status(200).send("ok"));
 
