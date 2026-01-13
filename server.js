@@ -77,7 +77,8 @@ app.post("/api/test-email", async (req, res) => {
 });
 
 const port = parseInt(process.env.PORT || "3000", 10);
-// Twilio Voice webhook (TEST) – gibt garantiert Audio aus
+
+// Twilio Voice webhook (TEST)
 app.post("/voice", (req, res) => {
   const twiml = `<?xml version="1.0" encoding="UTF-8"?>
 <Response>
@@ -93,10 +94,12 @@ app.post("/voice", (req, res) => {
 </Response>`;
 
   res.type("text/xml");
-  res.status(200).send(twiml);
-});
-  res.set("Content-Type", "text/xml");
   return res.status(200).send(twiml);
 });
 
-app.listen(port, () => console.log(`Server listening on ${port}`));
+// health (Railway check)
+app.get("/health", (req, res) => res.status(200).send("ok"));
+
+app.listen(port, () => {
+  console.log(`Server listening on ${port}`);
+});
